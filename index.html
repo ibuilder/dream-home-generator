@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dream Home Generator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.156.1/three.min.js"></script>
+  <!-- OrbitControls for Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.min.js"></script>
+  <!-- Custom CSS -->
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="text-center mb-4">Dream Home Generator</h1>
+    
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Home Specifications</h4>
+          </div>
+          <div class="card-body">
+            <form id="home-specs-form">
+              <!-- Basic Information -->
+              <div class="mb-3">
+                <label for="square-footage" class="form-label">Square Footage</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="square-footage" min="500" max="10000" step="100" value="2000">
+                  <span class="input-group-text">sq ft</span>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="home-type" class="form-label">Home Type</label>
+                <select class="form-select" id="home-type">
+                  <option value="ranch">Ranch</option>
+                  <option value="colonial" selected>Colonial</option>
+                  <option value="craftsman">Craftsman</option>
+                  <option value="modern">Modern</option>
+                  <option value="mediterranean">Mediterranean</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="stories" class="form-label">Number of Stories</label>
+                <select class="form-select" id="stories">
+                  <option value="1">1</option>
+                  <option value="2" selected>2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="bedrooms" class="form-label">Bedrooms</label>
+                <select class="form-select" id="bedrooms">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6+</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="bathrooms" class="form-label">Bathrooms</label>
+                <select class="form-select" id="bathrooms">
+                  <option value="1">1</option>
+                  <option value="1.5">1.5</option>
+                  <option value="2" selected>2</option>
+                  <option value="2.5">2.5</option>
+                  <option value="3">3</option>
+                  <option value="3.5">3.5</option>
+                  <option value="4+">4+</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-4">
+          <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Features & Finishes</h4>
+          </div>
+          <div class="card-body">
+            <form id="features-form">
+              <div class="mb-3">
+                <label class="form-label">Additional Rooms</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="office" checked>
+                  <label class="form-check-label" for="office">Home Office</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="basement">
+                  <label class="form-check-label" for="basement">Basement</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="game-room">
+                  <label class="form-check-label" for="game-room">Game Room</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="theater">
+                  <label class="form-check-label" for="theater">Home Theater</label>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Outdoor Features</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="patio" checked>
+                  <label class="form-check-label" for="patio">Patio</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="deck">
+                  <label class="form-check-label" for="deck">Deck</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="pool">
+                  <label class="form-check-label" for="pool">Swimming Pool</label>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="flooring" class="form-label">Main Flooring Type</label>
+                <select class="form-select" id="flooring">
+                  <option value="hardwood" selected>Hardwood</option>
+                  <option value="tile">Tile</option>
+                  <option value="carpet">Carpet</option>
+                  <option value="laminate">Laminate</option>
+                  <option value="vinyl">Vinyl</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="countertops" class="form-label">Kitchen Countertops</label>
+                <select class="form-select" id="countertops">
+                  <option value="granite" selected>Granite</option>
+                  <option value="quartz">Quartz</option>
+                  <option value="marble">Marble</option>
+                  <option value="butcher-block">Butcher Block</option>
+                  <option value="concrete">Concrete</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Utilities & Systems</h4>
+          </div>
+          <div class="card-body">
+            <form id="utilities-form">
+              <div class="mb-3">
+                <label for="electrical" class="form-label">Electrical Service</label>
+                <select class="form-select" id="electrical">
+                  <option value="100">100 Amp</option>
+                  <option value="150">150 Amp</option>
+                  <option value="200" selected>200 Amp</option>
+                  <option value="400">400 Amp</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="water-heater" class="form-label">Water Heater Type</label>
+                <select class="form-select" id="water-heater">
+                  <option value="tank" selected>Traditional Tank</option>
+                  <option value="tankless">Tankless</option>
+                  <option value="heat-pump">Heat Pump</option>
+                  <option value="solar">Solar</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="hvac" class="form-label">HVAC System</label>
+                <select class="form-select" id="hvac">
+                  <option value="central" selected>Central Air</option>
+                  <option value="heat-pump">Heat Pump</option>
+                  <option value="mini-split">Mini-Split</option>
+                  <option value="radiant">Radiant Floor Heating</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="garage" class="form-label">Garage Size</label>
+                <select class="form-select" id="garage">
+                  <option value="0">No Garage</option>
+                  <option value="1">1-Car</option>
+                  <option value="2" selected>2-Car</option>
+                  <option value="3">3-Car</option>
+                  <option value="4+">4+ Car</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Smart Home Features</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="smart-thermostat" checked>
+                  <label class="form-check-label" for="smart-thermostat">Smart Thermostat</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="smart-lighting" checked>
+                  <label class="form-check-label" for="smart-lighting">Smart Lighting</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="security-system">
+                  <label class="form-check-label" for="security-system">Security System</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      
+        <div class="card mb-4">
+          <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0">Appearance & Style</h4>
+          </div>
+          <div class="card-body">
+            <form id="style-form">
+              <div class="mb-3">
+                <label for="exterior" class="form-label">Exterior Material</label>
+                <select class="form-select" id="exterior">
+                  <option value="brick">Brick</option>
+                  <option value="vinyl" selected>Vinyl Siding</option>
+                  <option value="wood">Wood Siding</option>
+                  <option value="stucco">Stucco</option>
+                  <option value="stone">Stone</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="roof" class="form-label">Roof Type</label>
+                <select class="form-select" id="roof">
+                  <option value="asphalt" selected>Asphalt Shingles</option>
+                  <option value="metal">Metal</option>
+                  <option value="tile">Tile</option>
+                  <option value="slate">Slate</option>
+                  <option value="flat">Flat/Modern</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="ceiling-height" class="form-label">Ceiling Height</label>
+                <select class="form-select" id="ceiling-height">
+                  <option value="8">8 feet</option>
+                  <option value="9" selected>9 feet</option>
+                  <option value="10">10 feet</option>
+                  <option value="12+">12+ feet</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="windows" class="form-label">Window Style</label>
+                <select class="form-select" id="windows">
+                  <option value="single-hung">Single-Hung</option>
+                  <option value="double-hung" selected>Double-Hung</option>
+                  <option value="casement">Casement</option>
+                  <option value="picture">Picture</option>
+                  <option value="bay">Bay Windows</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div class="d-grid">
+          <button type="button" id="generate-btn" class="btn btn-primary btn-lg">Generate Dream Home</button>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Model Controls</h4>
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <button class="btn btn-outline-primary" id="toggle-measurement"><i class="fas fa-ruler"></i> Measurement Tool</button>
+              <button class="btn btn-outline-info" id="toggle-markup"><i class="fas fa-comment-alt"></i> Markup Tool</button>
+              <button class="btn btn-outline-success" id="export-ifc"><i class="fas fa-file-export"></i> Export IFC</button>
+              <button class="btn btn-outline-warning" id="export-blender"><i class="fas fa-cube"></i> Export for Blender</button>
+              <button class="btn btn-outline-secondary" id="reset-view"><i class="fas fa-sync"></i> Reset View</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">3D Viewer</h4>
+          </div>
+          <div class="card-body p-0">
+            <div id="viewer-container">
+              <div class="tool-panel">
+                <div class="btn-group btn-group-sm" role="group">
+                  <button class="btn btn-light" id="view-mode-toggle"><i class="fas fa-cube"></i> 3D View</button>
+                  <button class="btn btn-light" id="floor-plan-toggle"><i class="fas fa-th-large"></i> Floor Plan</button>
+                </div>
+              </div>
+              <div class="measurement-info d-none">
+                <div>Distance: <span id="measurement-value">0.00</span> ft</div>
+              </div>
+              <!-- Loading overlay -->
+              <div class="loading-overlay d-none" id="loading-overlay">
+                <div class="progress-container">
+                  <h5>Generating Your Dream Home...</h5>
+                  <div class="progress mb-3">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" id="generation-progress" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <p id="generation-status">Initializing...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap, Popper, and jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+  <!-- Custom JavaScript -->
+  <script src="js/viewer.js"></script>
+  <script src="js/house-builder.js"></script>
+  <script src="js/measurement.js"></script>
+  <script src="js/exporters.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
